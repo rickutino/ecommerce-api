@@ -5,5 +5,5 @@ RSpec.describe Category, type: :model do
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive } #nao importa se e caixa alta ou nao.
 
   it { is_expected.to have_many(:product_categories).dependent(:destroy) }
-  it { is_expected.to have_many(:products).throught(:product_categories) }
+  it { is_expected.to have_many(:products).through(:product_categories) }
 end
