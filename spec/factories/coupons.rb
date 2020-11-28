@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :coupon do
-    name { "MyString" }
-    code { "MyString" }
-    status { 1 }
-    discount_value { "9.99" }
+    sequence(:name) { |n| "My coupon #{n}" }
+    code { Faker::Commerce.unique.promotion_code(digits: 4) }
+    status { :active }
+    discount_value { 25 }
     max_use { 1 }
-    due_date { "2020-11-28 19:58:04" }
+    due_date { 3.days.from_now }
   end
 end
