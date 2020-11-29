@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+        future_date: "これからの日付にしてください。"
