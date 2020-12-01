@@ -1,6 +1,6 @@
 module Admin::V1
   class CategoriesController < ApiController
-    before_action :load_category, onl: [:update, :destroy]
+    before_action :load_category, only: [:update, :destroy]
     def index
       @categories = Category.all
     end
