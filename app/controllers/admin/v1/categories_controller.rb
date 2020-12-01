@@ -1,5 +1,6 @@
 module Admin::V1
   class CategoriesController < ApiController
+    before_action :load_category, onl: [:update, :destroy]
     def index
       @categories = Category.all
     end
@@ -15,13 +16,16 @@ module Admin::V1
     end
 
     def destroy
-      @category = Category.find(params[:id])
       @category.destroy!
     rescue
       render_error(fields: @category.errors.messages)
     end
     
     private
+
+    def load_category
+      @category = Category.find(params[:id])
+    end
 
     def category_params
       return {} unless params.has_key?(:category)
