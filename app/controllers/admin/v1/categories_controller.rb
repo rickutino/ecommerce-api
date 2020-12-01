@@ -15,6 +15,10 @@ module Admin::V1
     end
 
     def destroy
+      @category = Category.find(params[:id])
+      @category.destroy!
+    rescue
+      render_error(fields: @category.errors.messages)
     end
     
     private
