@@ -6,7 +6,7 @@ module Admin::V1
     end
 
     def create
-      @category = Category.create
+      @category = Category.new
       @category.attributes = category_params
 
       save_category!

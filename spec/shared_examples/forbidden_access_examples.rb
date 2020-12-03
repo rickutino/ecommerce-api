@@ -4,6 +4,6 @@ shared_examples "forbidden access" do
   end
 
   it "returs forbidden status" do
-    expext(response).to have_http_status(:forbidden)
+    expect(response).to have_http_status(:forbidden)
   end
 end
