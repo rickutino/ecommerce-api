@@ -6,7 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 6.0', '>= 6.0.3.4'
 
 # Basic
+gem 'active_record_query_trace'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'colorize'
 gem 'inky-rb', require: 'inky'
 gem 'sass-rails'
 gem 'premailer-rails'
@@ -25,6 +27,8 @@ gem 'jbuilder', '~> 2.10.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'better_errors'
+  gem 'pry-byebug'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 4.0.1'
