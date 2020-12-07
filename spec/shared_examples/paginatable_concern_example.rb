@@ -114,3 +114,4 @@ shared_examples "paginatable concern" do |factory_name|
       end
     end
   end
+end
