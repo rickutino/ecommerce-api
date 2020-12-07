@@ -1,8 +1,10 @@
 module Admin::V1
   class ApiController < ApplicationController
     class ForbiddenAccess < StandardError; end
+
     include Authenticatable
     include SimpleErrorRenderable
+    
     self.simple_error_partial = "shared/simple_error"
 
     before_action :restrict_access_for_admin!
