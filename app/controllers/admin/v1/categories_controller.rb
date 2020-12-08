@@ -5,6 +5,10 @@ module Admin::V1
       @categories = Category.all
     end
 
+    def show
+      @category = Category.find(params[:id])
+    end
+
     def create
       @category = Category.new
       @category.attributes = category_params
