@@ -70,10 +70,6 @@ Here are the technologies used in this project.
 * To run the project:
 >    $ rails s
  
-<!-- ## How to use
- 
-Here will be the images and descriptions. Principal content.
- 
  
 ## Features
  
