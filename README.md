@@ -61,8 +61,9 @@ Here are the technologies used in this project.
 ## Getting started
  
 * To install gems:
->    $ gem install mailcatcher 
-(Maybe you need to put this code in the your terminal) $ gem install thin -v 1.5.1 -- --with-cflags="-Wno-error=implicit-function-declaration"
+>    $ gem install mailcatcher <br>
+>    $ gem install thin -v 1.5.1 -- --with-cflags="-Wno-error=implicit-function-declaration" <br>
+   (↑↑↑Maybe you need to put this code in the your terminal↑↑↑) <br>
 >    $ bundle install
 * To create the bank and do as migrations:
 >    $ rake db:create db:migrate db:seed
