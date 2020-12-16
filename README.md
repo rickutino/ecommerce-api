@@ -3,7 +3,7 @@
  
 # ECommerce GameStation
   
- E-commerce for online game with admin user management on the backend using auth devise token 🚀 Under construction ... 🚧
+ E-commerce for online game with admin user management on the backend using auth devise token with test 🚀 Under construction ... 🚧
 
 ## Tabela de conteúdos
 
