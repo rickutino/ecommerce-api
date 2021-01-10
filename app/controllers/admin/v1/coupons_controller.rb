@@ -8,10 +8,7 @@ module Admin::V1
       @coupon = Coupon.new
       @coupon.attributes = coupon_params
 
-      @coupon.save!
-      render :show
-    rescue
-      render json: { errors: { fields: @coupon.errors.messages } }, status: :unprocessable_entity
+      save_coupon!
     end
 
     private
@@ -19,6 +16,13 @@ module Admin::V1
     def coupon_params
       return {} unless params.has_key?(:coupon)
       params.require(:coupon).permit(:id, :name, :code, :status, :discount_value, :max_use, :due_date)
+    end
+
+    def save_coupon!
+      @coupon.save!
+      render :show
+    rescue
+      render_error(fields: @coupon.errors.messages)
     end
   end
 end
