@@ -17,6 +17,7 @@ module Admin::V1
     end
 
     def update
+      @category = Category.find(params[:id])
       @category.attributes = category_params
       save_category!
     end
