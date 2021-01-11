@@ -1,5 +1,7 @@
 module Admin::V1
   class CouponsController < ApiController
+    before_action :load_coupon, only: [:update, :destroy]
+
     def index
       @coupons = Coupon.all
     end
@@ -12,13 +14,24 @@ module Admin::V1
     end
 
     def update
-      @coupon = Coupon.find(params[:id])
+      # @coupon = Coupon.find(params[:id])
       @coupon.attributes = coupon_params
 
       save_coupon!
     end
 
+    def destroy
+      # @coupon = Coupon.find(params[:id])
+      @coupon.destroy!
+    rescue
+      render error(fields: @coupon.errors.messages)
+    end
+
     private
+
+    def load_coupon
+      @coupon = Coupon.find(params[:id])
+    end
 
     def coupon_params
       return {} unless params.has_key?(:coupon)
