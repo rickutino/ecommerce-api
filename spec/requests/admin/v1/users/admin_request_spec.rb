@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Admin::V1::Users", type: :request do
+RSpec.describe "Admin::V1::Users ad Admin", type: :request do
   let!(:user) { create(:user) }
 
   describe "GET /admin/v1/users" do
@@ -22,7 +22,7 @@ RSpec.describe "Admin::V1::Users", type: :request do
     let(:url) { "/admin/v1/users" }
 
     context "with valid params" do
-      let!("user_params") { { user: attributes_for(:user) }.to_json }
+      let!(:user_params) { { user: attributes_for(:user) }.to_json }
 
       it "should create a new User" do
         expect do
@@ -41,9 +41,12 @@ RSpec.describe "Admin::V1::Users", type: :request do
     end
 
     context "with invalid params" do 
-      let!(:invalid_user_params) { { user: attributes_for(:user, name: nil) }.to_json }
+      let!(:new_invalid_name) { nil }
+      let!(:invalid_user_params) do
+        { user: attributes_for(:user, name: new_invalid_name) }.to_json
+      end
 
-      it "does not add a new User" do
+      it "should does not add a new User" do
         expect do
           post url, headers: auth_header(user), params: invalid_user_params
         end.to_not change(User, :count)
@@ -69,7 +72,7 @@ RSpec.describe "Admin::V1::Users", type: :request do
       let(:new_name) { "Ricardo" }
       let!(:user_params) { { user: { name: new_name } }.to_json }
 
-      it "Updates User" do
+      it "updates User" do
         patch url, headers: auth_header(user), params: user_params
         user_test.reload
         expect(user_test.name).to eq new_name
@@ -93,7 +96,7 @@ RSpec.describe "Admin::V1::Users", type: :request do
         { user: attributes_for(:user, name: new_invalid_name) }.to_json
       end 
 
-      it "does not apdate User" do
+      it "should does not apdate User" do
         old_name = user_test.name
         patch url, headers: auth_header(user), params: user_invalid_params
         user_test.reload

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Admin::V1::Coupons", type: :request do
-  let(:user) { create(:user) }
+RSpec.describe "Admin::V1::Coupons as Admin", type: :request do
+  let!(:user) { create(:user) }
 
-  context "GET /coupons" do
+  describe "GET /coupons" do
     let(:url) { "/admin/v1/coupons" }
     let!(:coupons) { create_list(:coupon, 5) } # "!" faz ele executar antes do request for chamado. 
 
@@ -18,19 +18,19 @@ RSpec.describe "Admin::V1::Coupons", type: :request do
     end
   end
 
-  context "POST /coupons" do
+  describe "POST /coupons" do
     let(:url) { "/admin/v1/coupons" }
 
     context "with valid params" do
-      let(:coupon_params) { { coupon: attributes_for(:coupon) }.to_json } 
+      let!(:coupon_params) { { coupon: attributes_for(:coupon) }.to_json } 
         # Primeiro criamos uma variável coupon_params e chamamos o método attribute_for do Factory Bot. 
         # Este método retorna um hash com os dados de uma factory, que armazenamos numa chave coupon. 
         # Chamamos o to_json para que ele transforme este hash em JSON de fato para enviarmos no request.
 
-      it "adds a new Coupon" do
-        expect do #Criando bloco
+      it "should create a new Coupon" do
+        expect do
           post url, headers: auth_header(user), params: coupon_params
-        end.to change(Coupon, :count).by(1) # verificando se ouve um acrecimento de 1 unidade.
+        end.to change(Coupon, :count).by(1)
       end
 
       it "returns last added Coupon" do
@@ -49,11 +49,12 @@ RSpec.describe "Admin::V1::Coupons", type: :request do
       # Criamos uma variável coupon_invalid_params com a factory de coupon, 
       # porém dessa vez estamos colocando o nome como vazio, 
       # pois já sabemos que ele é um atributo obrigatório.
-      let(:coupon_invalid_params) do
-        { coupon: attributes_for(:coupon, code: nil) }.to_json
+      let!(:new_invalid_name) { nil }
+      let!(:coupon_invalid_params) do
+        { coupon: attributes_for(:coupon, code: new_invalid_name) }.to_json
       end
 
-      it "does not add a new Coupon" do
+      it "should does not add a new Coupon" do
         # fazemos o POST com estes parâmetros inválidos que estamos nos certificando 
         # que coupon não possui nenhuma alteração na contagem.
         expect do
@@ -73,15 +74,15 @@ RSpec.describe "Admin::V1::Coupons", type: :request do
     end
   end
 
-  context "PATCH /coupons/:id" do
-    let(:coupon) { create(:coupon) }
+  describe "PATCH /coupons/:id" do
+    let!(:coupon) { create(:coupon) }
     let(:url) { "/admin/v1/coupons/#{coupon.id}"}
 
     context "with valid params" do
       let(:new_code) { "0987654321" }
-      let(:coupon_params) { { coupon: { code: new_code } }.to_json }
+      let!(:coupon_params) { { coupon: { code: new_code } }.to_json }
 
-      it "updates Coupon" do
+      it "should updates Coupon" do
         patch url, headers: auth_header(user), params: coupon_params
         coupon.reload
         expect(coupon.code).to eq new_code
@@ -102,11 +103,12 @@ RSpec.describe "Admin::V1::Coupons", type: :request do
     end
 
     context "with invalid params" do
+      let!(:new_invalid_name) { nil }
       let(:coupon_invalid_params) do
-        { coupon: attributes_for(:coupon, code: nil) }.to_json
+        { coupon: attributes_for(:coupon, code: new_invalid_name) }.to_json
       end
 
-      it "does not update Coupon" do
+      it "should does not update Coupon" do
         old_name = coupon.code
         patch url, headers: auth_header(user), params: coupon_invalid_params
         coupon.reload
@@ -127,11 +129,11 @@ RSpec.describe "Admin::V1::Coupons", type: :request do
     end
   end
 
-  context "DELETE /categories/:id" do
+  describe "DELETE /categories/:id" do
     let!(:coupon) { create(:coupon) }
     let(:url) { "/admin/v1/coupons/#{coupon.id}" }
 
-    it "removes Coupon" do
+    it "should removes Coupon" do
       expect do
         delete url, headers: auth_header(user)
       end.to change(Coupon, :count).by(-1)
