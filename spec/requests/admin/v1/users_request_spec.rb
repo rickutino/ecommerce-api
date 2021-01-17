@@ -24,7 +24,7 @@ RSpec.describe "Admin::V1::Users", type: :request do
     context "with valid params" do
       let!("user_params") { { user: attributes_for(:user) }.to_json }
 
-      it "adds a new User" do
+      it "should create a new User" do
         expect do
           post url, headers: auth_header(user), params: user_params
         end.to change(User, :count).by(1)
@@ -54,7 +54,7 @@ RSpec.describe "Admin::V1::Users", type: :request do
         expect(body_json['errors']['fields']).to have_key('name')
       end
 
-      it "returns errors messages" do
+      it "returns unprocessable_entity status" do
         post url, headers: auth_header(user), params: invalid_user_params
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -70,7 +70,6 @@ RSpec.describe "Admin::V1::Users", type: :request do
       let!(:user_params) { { user: { name: new_name } }.to_json }
 
       it "Updates User" do
-        binding.pry
         patch url, headers: auth_header(user), params: user_params
         user_test.reload
         expect(user_test.name).to eq new_name
@@ -111,6 +110,27 @@ RSpec.describe "Admin::V1::Users", type: :request do
         patch url, headers: auth_header(user), params: user_invalid_params
         expect(response).to have_http_status(:unprocessable_entity)
       end
+    end
+  end
+
+  describe "DELETE /admin/v1/users/:id" do
+    let!(:user_test) { create(:user) }
+    let(:url) { "/admin/v1/users/#{user_test.id}"}
+
+    it "should removes user" do
+      expect do
+        delete url, headers: auth_header(user)
+      end.to change(User, :count).by(-1)
+    end
+
+    it "returns no_content status" do
+      delete url, headers: auth_header(user)
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it "should does not return any body content" do
+      delete url, headers: auth_header(user)
+      expect(body_json).to_not be_present
     end
   end
 end
