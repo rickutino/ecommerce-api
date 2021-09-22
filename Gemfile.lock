@@ -122,7 +122,7 @@ GEM
     mini_portile2 (2.5.0)
     minitest (5.14.2)
     msgpack (1.3.3)
-    nio4r (2.5.4)
+    nio4r (2.5.8)
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -142,7 +142,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.13.0)
     public_suffix (4.0.6)
-    puma (4.3.6)
+    puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -253,7 +253,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   premailer-rails
   pry-byebug
-  puma (~> 4.1)
+  puma (~> 4.3)
   rack-cors (~> 1.1.1)
   rails (~> 6.0, >= 6.0.3.4)
   rspec-rails (~> 4.0.1)
