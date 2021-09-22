@@ -13,7 +13,7 @@ gem 'inky-rb', require: 'inky'
 gem 'sass-rails'
 gem 'premailer-rails'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3'
 
 # Auth
 gem 'devise_token_auth', '~> 1.1.4'
